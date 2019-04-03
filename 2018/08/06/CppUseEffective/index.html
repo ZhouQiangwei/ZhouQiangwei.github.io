@@ -1,0 +1,319 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-CN"><head><script></script><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0"><link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"6.3.0",sidebar:{position:"left",display:"always",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!1,fastclick:!1,lazyload:!1,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><meta name="description" content="使用c++过程中碰到的问题和解决办法以及资源和程序"><meta name="keywords" content="c++, 使用总结"><meta property="og:type" content="article"><meta property="og:title" content="CppUseEffective"><meta property="og:url" content="https://zhouqiangwei.github.io/2018/08/06/CppUseEffective/index.html"><meta property="og:site_name" content="Qiangwei&#39;s blog"><meta property="og:description" content="使用c++过程中碰到的问题和解决办法以及资源和程序"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2019-01-06T07:34:11.903Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CppUseEffective"><meta name="twitter:description" content="使用c++过程中碰到的问题和解决办法以及资源和程序"><link rel="alternate" href="/atom.xml" title="Qiangwei's blog" type="application/atom+xml"><link rel="canonical" href="https://zhouqiangwei.github.io/2018/08/06/CppUseEffective/"><script type="text/javascript" id="page.configurations">CONFIG.page={sidebar:""}</script><title>CppUseEffective | Qiangwei's blog</title><noscript><style type="text/css">.sidebar-inner,.use-motion .brand,.use-motion .collection-title,.use-motion .comments,.use-motion .menu-item,.use-motion .motion-element,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .logo,.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Qiangwei's blog</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">coding and learning</p></div><div class="site-nav-toggle"> <button aria-label="切换导航栏"><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="menu-item-icon fa fa-fw fa-newspaper-o"></i><br>留言板</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://zhouqiangwei.github.io/2018/08/06/CppUseEffective/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Qiangwei"><meta itemprop="description" content="顺风不浪 逆风不怂"><meta itemprop="image" content="/images/avatar.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Qiangwei's blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">CppUseEffective</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建时间：2018-08-06 15:14:42" itemprop="dateCreated datePublished" datetime="2018-08-06T15:14:42+08:00">2018-08-06</time> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i></span> <span class="post-meta-item-text">更新于</span> <time title="修改时间：2019-01-06 15:34:11" itemprop="dateModified" datetime="2019-01-06T15:34:11+08:00">2019-01-06</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/language/" itemprop="url" rel="index"><span itemprop="name">language</span></a></span> ， <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/language/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span></span> <span class="post-comments-count"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-comment-o"></i></span> <a href="/2018/08/06/CppUseEffective/#comments" itemprop="discussionUrl"><span class="post-meta-item-text">评论数：</span><span class="post-comments-count valine-comment-count" data-xid="/2018/08/06/CppUseEffective/" itemprop="commentCount"></span></a></span> <span id="/2018/08/06/CppUseEffective/" class="leancloud_visitors" data-flag-title="CppUseEffective"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数：</span><span class="leancloud-visitors-count"></span></span><div class="post-description">使用c++过程中碰到的问题和解决办法以及资源和程序</div></div></header><div class="post-body" itemprop="articleBody"><script src="/assets/js/APlayer.min.js"></script><h2 id="1-C-遇到的问题"><a href="#1-C-遇到的问题" class="headerlink" title="1. C++ 遇到的问题"></a>1. C++ 遇到的问题</h2><h3 id="1-1-字符串频繁变动内容不要用-string"><a href="#1-1-字符串频繁变动内容不要用-string" class="headerlink" title="1.1 字符串频繁变动内容不要用 string"></a>1.1 字符串频繁变动内容不要用 string</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">std::string map_seq=<span class="string">""</span>; //too slow <span class="keyword">for</span> map_seq = map_seq + <span class="string">'N'</span></span><br><span class="line">       bool valid=<span class="literal">false</span>;int index=0;</span><br><span class="line">       <span class="keyword">while</span> (m&lt;cLen)&#123;</span><br><span class="line">               <span class="keyword">if</span>(reds_loci.size()&gt;1)&#123;</span><br><span class="line">                       <span class="keyword">if</span> (m &gt;= rstart &amp;&amp;  m &lt; rend-redlen)&#123;</span><br><span class="line">                               <span class="keyword">if</span>(distance&gt;=low_bound &amp;&amp; distance &lt;= up_bound)&#123;</span><br><span class="line">                                       map_seq = map_seq + seq[m];</span><br><span class="line">                                       index++;</span><br><span class="line">                                       valid=<span class="literal">true</span>;</span><br><span class="line">                               &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                                       map_seq = map_seq +<span class="string">'N'</span>; //<span class="string">'-'</span></span><br><span class="line">                                       index++;</span><br><span class="line">                                       valid=<span class="literal">false</span>;</span><br><span class="line">                               &#125;</span><br><span class="line">                               ....</span><br><span class="line">                         .....</span><br><span class="line">                 .....</span><br><span class="line">                 m++;</span><br><span class="line">       &#125;</span><br><span class="line">       map_seq[cLen]=<span class="string">'\0'</span>;</span><br></pre></td></tr></table></figure><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>程序中循环cLen（大约几千万到几个亿），每个位置需要在字符串map_string后面添加一个字符，导致string频繁变动内容以及长度，运行非常之慢。</p><h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>将string修改为char*，按照cLen长度进行初始化字符串长度，因此每个位置赋值，并不会引起变化。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>* map_seq = <span class="keyword">new</span> <span class="keyword">char</span>[cLen+<span class="number">1</span>];</span><br><span class="line"><span class="built_in">strcpy</span>(map_seq, <span class="string">"None"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"\nProcess the genome with restriction enzyme digestion sites number: %d, genomeLen: %d"</span>, reds_loci.size(), cLen);</span><br><span class="line"><span class="keyword">unsigned</span> m=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> rstart=<span class="number">0</span>;<span class="keyword">int</span> rend=<span class="number">0</span>;<span class="keyword">int</span> distance=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(reds_loci.size()&gt;<span class="number">1</span>)&#123;</span><br><span class="line">        rstart=reds_loci[<span class="number">0</span>];</span><br><span class="line">        rend=reds_loci[<span class="number">1</span>]+redlen;</span><br><span class="line">        distance=rend-rstart;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> valid=<span class="literal">false</span>;<span class="keyword">int</span> index=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (m&lt;cLen)&#123;</span><br><span class="line">        <span class="keyword">if</span>(reds_loci.size()&gt;<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (m &gt;= rstart &amp;&amp;  m &lt; rend-redlen)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(distance&gt;=low_bound &amp;&amp; distance &lt;= up_bound)&#123;</span><br><span class="line">                                map_seq[index] = seq[m];</span><br><span class="line">                                index++;</span><br><span class="line">                                valid=<span class="literal">true</span>;</span><br><span class="line">                        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                                map_seq[index] = <span class="string">'N'</span>; <span class="comment">//'-'</span></span><br><span class="line">                                index++;</span><br><span class="line">                                valid=<span class="literal">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(m&lt;rstart)&#123;</span><br><span class="line">                                m++;</span><br><span class="line">                                <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span>(m &lt; rend &amp;&amp; valid)&#123;</span><br><span class="line">                                map_seq[index] = seq[m];</span><br><span class="line">                                index++;</span><br><span class="line">                                m++; <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;<span class="keyword">else</span> m--;</span><br><span class="line">                        reds_loci.pop_front();</span><br><span class="line">                        <span class="keyword">if</span>(reds_loci.size()&gt;<span class="number">1</span>)&#123;</span><br><span class="line">                                rstart=reds_loci[<span class="number">0</span>];</span><br><span class="line">                                rend=reds_loci[<span class="number">1</span>]+redlen;</span><br><span class="line">                                distance=rend-rstart;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m++;</span><br><span class="line">&#125;</span><br><span class="line">map_seq[cLen]=<span class="string">'\0'</span>;</span><br></pre></td></tr></table></figure><h3 id="1-2-what-std-bad-alloc"><a href="#1-2-what-std-bad-alloc" class="headerlink" title="1.2 what():  std::bad_alloc"></a>1.2 what(): std::bad_alloc</h3><h4 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h4><p>terminate called after throwing an instance of ‘std::bad_alloc’</p><p>what(): std::bad_alloc</p><h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>可能原因：</p><ol><li>malloc 申请内存，但系统内存不足。</li><li>vector需要申请的内存，必须要连续的内存地址，例如我们需要申请200M大小的vector，但是没有连续200M的空间，尽管我们还是有较大的非连续的空间，也是不行的。</li><li>检查是否有频繁的申请内存但是没有释放，或者释放错误。</li><li>……</li></ol><h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p>如果是因为你必须申请一块较大的内存，例如我需要申请10G左右的内存来存储vector，当然我也不知道当时为什么没有用数组存储，总之这种情况不是因为频繁调用以及异常申请释放等问题，而且自己目前也不想去修改代码（懒…），那只能确保服务器内存足够的情况下提交程序。<br>总之，针对这个问题需要根据自己的代码以及程序要做的问题来解决，一般比较容易解决。</p><p>BWT：检查过自己的程序，不是vector确实是new申请的数组需要较大内存。我对内存一直处于晕乎状态，如果有什么不对的，非常希望指正。</p><p>在论坛看到一个答复如下：</p><p>容量大小从小到大：栈≤全局数据≤堆≤文件≤硬盘≤磁盘阵列≤云存储 当程序需要使用比如2GB～1TB左右的存储时，最简单的办法恐怕得是用文件读写模拟内存读写了吧。windows参考_fseeki64函数，linux参考fseeko64函数。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FILE *fA;fA=fopen(<span class="string">"A"</span>,<span class="string">"rb+"</span>);_fseeki64(fA,<span class="number">10000000000</span>i64*<span class="keyword">sizeof</span>(<span class="keyword">int</span>),SEEK_SET);fputc(fA,<span class="number">0</span>);<span class="comment">//int A[10000000000];</span></span><br><span class="line"><span class="keyword">int</span> B;</span><br><span class="line">_fseeki64(fA,<span class="number">9999999999</span>i64*<span class="keyword">sizeof</span>(<span class="keyword">int</span>),SEEK_SET);fread(&amp;B,<span class="number">1</span>,<span class="keyword">sizeof</span>(<span class="keyword">int</span>),fA);<span class="comment">//B=A[9999999999];</span></span><br><span class="line">_fseeki64(fA,<span class="number">9999999999</span>i64*<span class="keyword">sizeof</span>(<span class="keyword">int</span>),SEEK_SET);fwrite(&amp;B,<span class="number">1</span>,<span class="keyword">sizeof</span>(<span class="keyword">int</span>),fA);<span class="comment">//A[9999999999]=B;</span></span><br><span class="line">fclose(fA);</span><br></pre></td></tr></table></figure><p>没测试过可行性以及运行效率，大家有时间可以测试一下，欢迎回复测试结果，或提供其他办法。</p><p><a href="https://bbs.csdn.net/topics/392179626" target="_blank" rel="noopener">参考</a></p><h2 id="2-C-信息"><a href="#2-C-信息" class="headerlink" title="2. C++ 信息"></a>2. C++ 信息</h2><h3 id="2-1-a-o-so"><a href="#2-1-a-o-so" class="headerlink" title="2.1 .a .o .so"></a>2.1 .a .o .so</h3><p>在Linux上创建静态库.a和动态库.so</p><p>我们通常把一些公用函数制作成函数库,供其它程序使用.<br>函数库分为静态库和共享库两种:<br>1.静态函数库<br>这类库的名字一般是libxxx.a.<br>利用静态函数库编译成的文件比较大,因为整个函数库的所有数据都会被整合进目标代码中.<br>优点就显而易见了,即编译后的执行程序不需要外部的函数库支持,因为所有使用的函数都已经被编译进去了.<br>当然这也会成为缺点,如果静态函数库改变了,那么你的程序必须重新编译.<br>比如PHP的configure参数–enable-mbstring=static(默认),<br>生成的mbstring.a被静态链接到二进制程序php,php-fpm,php-cgi,libphp.so中.<br>2.共享函数库<br>这类库的名字一般是libxxx.so.<br>相对于静态函数库,共享函数库在编译的时候 并没有被编译进目标代码中.<br>当程序执行到相关函数时才调用共享函数库里相应的函数,因此共享函数库所产生的可执行文件比较小.<br>由于共享函数库没有被整合进你的程序,而是在程序运行时动态地申请并调用,所以程序的运行环境中必须提供相应的库.<br>共享函数库的改变并不影响你的程序,所以共享函数库的升级比较方便.<br>比如PHP的configure参数–enable-mbstring=shared,生成的mbstring.so就是共享库.<br>另外用phpize生成PECL扩展库的configure文件,然后make编译,生成的也是共享库.</p><p>–enable-static 生成静态库a文件<br>–enable-shared 生成共享库so文件</p><p>用ar打包.o文件(obj对象文件,目标文件)生成.a共享库:<br>ar -r libname.a name.o<br>ar -t libname.a 可见 name.o</p><p><a href="https://segmentfault.com/q/1010000005269977" target="_blank" rel="noopener">参考链接</a></p></div><div><div style="text-align:center;color:#ccc;font-size:14px"> ------ The Happy Ending -----</div></div><div><div class="my_post_copyright"><script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script><script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script><script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><p><span>本文标题:</span><a href="/2018/08/06/CppUseEffective/">CppUseEffective</a></p><p><span>文章作者:</span><a href="/" title="访问 Qiangwei 的个人博客">Qiangwei</a></p><p><span>发布时间:</span>2018年08月06日 - 15:08</p><p><span>最后更新:</span>2019年01月06日 - 15:01</p><p><span>原始链接:</span><a href="/2018/08/06/CppUseEffective/" title="CppUseEffective">https://zhouqiangwei.github.io/2018/08/06/CppUseEffective/</a><span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zhouqiangwei.github.io/2018/08/06/CppUseEffective/" aria-label="复制成功！"></i></span></p><p> 转载请保留原文链接及作者。</p></div><script>var clipboard=new Clipboard(".fa-clipboard");$(".fa-clipboard").click(function(){clipboard.on("success",function(){swal({title:"",text:"复制成功",icon:"success",showConfirmButton:!0})})})</script></div><footer class="post-footer"><div class="post-tags"><a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/08/01/CorrelationR/" rel="next" title="CorrelationR"><i class="fa fa-chevron-left"></i> CorrelationR</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2018/10/06/mac-usage/" rel="prev" title="mac_usage">mac_usage<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Qiangwei"><p class="site-author-name" itemprop="name">Qiangwei</p><p class="site-description motion-element" itemprop="description">顺风不浪 逆风不怂</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives/"><span class="site-state-item-count">39</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">24</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">55</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/ZhouQiangwei" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://www.zhihu.com/people/qiang-wei-97-1/activities" target="_blank" title="知乎"><i class="fa fa-fw fa-gratipay"></i> 知乎</a></span><span class="links-of-author-item"><a href="mailto:qiangwei.zhou2013@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i> E-Mail</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-C-遇到的问题"><span class="nav-number">1.</span> <span class="nav-text">1. C++ 遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-字符串频繁变动内容不要用-string"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 字符串频繁变动内容不要用 string</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题描述"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决"><span class="nav-number">1.1.2.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-what-std-bad-alloc"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 what(): std::bad_alloc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#错误"><span class="nav-number">1.2.1.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法"><span class="nav-number">1.2.3.</span> <span class="nav-text">解决办法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-C-信息"><span class="nav-number">2.</span> <span class="nav-text">2. C++ 信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-a-o-so"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 .a .o .so</span></a></li></ol></li></ol></div></div></section><div id="music163player"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=32364032&auto=0&height=66"></iframe></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span><span class="with-love" id="animate"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Qiangwei</span></div><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> <span id="busuanzi_container_site_uv">| 本站访问<span id="busuanzi_value_site_uv"></span>人次</span></div><div class="theme-info"><div class="powered-by"></div> <span class="post-count">| 博客全站共26.1k字</span></div><div style="display:none"><script src="//s95.cnzz.com/z_stat.php?id=1274106223&web_id=1274106223" language="JavaScript"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">var GUEST=["nick","mail","link"],guest="nick,mail,link";guest=guest.split(",").filter(function(e){return-1<GUEST.indexOf(e)}),new Valine({el:"#comments",verify:!1,notify:!1,appId:"L6lf5Fu6idkKfdhjKT1WmTbQ-gzGzoHsz",appKey:"WIycEuuCj4CnQLrJUlWHvPae",placeholder:"Just go",avatar:"mm",guest_info:guest,pageSize:"10"})</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("L6lf5Fu6idkKfdhjKT1WmTbQ-gzGzoHsz","WIycEuuCj4CnQLrJUlWHvPae")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
