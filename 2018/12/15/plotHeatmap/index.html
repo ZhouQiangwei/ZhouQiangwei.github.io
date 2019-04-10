@@ -1,4 +1,1157 @@
-<!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-CN"><head><script></script><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0"><link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"6.3.0",sidebar:{position:"left",display:"always",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!1,fastclick:!1,lazyload:!1,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><meta name="description" content="visualization, python, heatmap"><meta name="keywords" content="visualization, python, heatmap"><meta property="og:type" content="article"><meta property="og:title" content="plotHeatmap"><meta property="og:url" content="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/index.html"><meta property="og:site_name" content="Qiangwei&#39;s blog"><meta property="og:description" content="visualization, python, heatmap"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://zhouqiangwei.github.io/15/plotHeatmap/PlotHeatmap/heatmap.png"><meta property="og:updated_time" content="2019-01-06T07:34:11.913Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="plotHeatmap"><meta name="twitter:description" content="visualization, python, heatmap"><meta name="twitter:image" content="https://zhouqiangwei.github.io/15/plotHeatmap/PlotHeatmap/heatmap.png"><link rel="alternate" href="/atom.xml" title="Qiangwei's blog" type="application/atom+xml"><link rel="canonical" href="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/"><script type="text/javascript" id="page.configurations">CONFIG.page={sidebar:""}</script><title>plotHeatmap | Qiangwei's blog</title><noscript><style type="text/css">.sidebar-inner,.use-motion .brand,.use-motion .collection-title,.use-motion .comments,.use-motion .menu-item,.use-motion .motion-element,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .logo,.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Qiangwei's blog</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">coding and learning</p></div><div class="site-nav-toggle"> <button aria-label="切换导航栏"><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="menu-item-icon fa fa-fw fa-newspaper-o"></i><br>留言板</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Qiangwei"><meta itemprop="description" content="顺风不浪 逆风不怂"><meta itemprop="image" content="/images/avatar.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Qiangwei's blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">plotHeatmap</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建时间：2018-12-15 14:49:34" itemprop="dateCreated datePublished" datetime="2018-12-15T14:49:34+08:00">2018-12-15</time> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i></span> <span class="post-meta-item-text">更新于</span> <time title="修改时间：2019-01-06 15:34:11" itemprop="dateModified" datetime="2019-01-06T15:34:11+08:00">2019-01-06</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/visualization/" itemprop="url" rel="index"><span itemprop="name">visualization</span></a></span> ， <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/visualization/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span></span> <span class="post-comments-count"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-comment-o"></i></span> <a href="/2018/12/15/plotHeatmap/#comments" itemprop="discussionUrl"><span class="post-meta-item-text">评论数：</span><span class="post-comments-count valine-comment-count" data-xid="/2018/12/15/plotHeatmap/" itemprop="commentCount"></span></a></span> <span id="/2018/12/15/plotHeatmap/" class="leancloud_visitors" data-flag-title="plotHeatmap"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数：</span><span class="leancloud-visitors-count"></span></span><div class="post-description">visualization, python, heatmap</div></div></header><div class="post-body" itemprop="articleBody"><script src="/assets/js/APlayer.min.js"></script><h2 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Created on Fri Sep 21 15:37:26 2018</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@author: qwzhou</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.backends.backend_pdf <span class="keyword">import</span> PdfPages</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> cm </span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> axes</span><br><span class="line"></span><br><span class="line">y = []</span><br><span class="line">z = []</span><br><span class="line">k = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readfile</span><span class="params">(filename, y, z, k)</span>:</span></span><br><span class="line">    nline=<span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'r'</span>) <span class="keyword">as</span> fig:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> fig:</span><br><span class="line">            data = line.split()</span><br><span class="line">            <span class="keyword">if</span> nline == <span class="number">0</span>:</span><br><span class="line">                y.append(map(float,data[<span class="number">1</span>:]))</span><br><span class="line">            <span class="keyword">elif</span> nline == <span class="number">1</span>:</span><br><span class="line">                z.append(map(float,data[<span class="number">1</span>:]))</span><br><span class="line">            <span class="keyword">elif</span> nline == <span class="number">2</span>:</span><br><span class="line">                k.append(map(float,data[<span class="number">1</span>:]))</span><br><span class="line">            nline=nline+<span class="number">1</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">#readfile("./A549/PolII_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/CTCF_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./A549/h3k4me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k27ac_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k4me1_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./A549/h3k36me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k27me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k9me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./k562/H3K27ac_narrow_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K4me3_narrow_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K9ac_narrow_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K4me1_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./k562/H3K36me3_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K9me3_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K27me3_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27ac_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/PolII_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me1_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K36me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K9me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_UT-A_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K27me3_none_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K9me3_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K4me1_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K27ac_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K4me3_UW_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_UT-A_peaks.newasm.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_UT-A.Allele.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.LINE.Methy.1.txt.Aver", y, z, k) </span></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.SINE.Methy.1.txt.Aver", y, z, k) </span></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.LTR.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27ac_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K36me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K9me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me1_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27ac_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/PolII_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me1_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K9me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K36me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/CTCF_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K27ac_narrow_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K4me3_narrow_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K9ac_narrow_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K4me1_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K27me3_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K9me3_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K36me3_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/hg38.fa.out.repeat.start.sites.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.LINE.sites.Methy.1.txt.Aver"</span>, y, z, k) </span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.SINE.sites.Methy.1.txt.Aver"</span>, y, z, k) </span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.LTR.sites.Methy.1.txt.Aver"</span>, y, z, k)</span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.Others.sites.Methy.1.txt.Aver"</span>, y, z, k)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">filename=<span class="string">"./IMR90/ASM.distri.TE.Sites.heatmap"</span></span><br><span class="line">filename2=filename + <span class="string">".pdf"</span></span><br><span class="line">pdf = PdfPages(filename2)</span><br><span class="line">xlabels=[]</span><br><span class="line"><span class="comment">#ylabels=['PolII', 'h3k4me3', 'h3k27ac', 'h3k27me3', 'h3k36me3', 'h3k4me1', 'h3k9me3']</span></span><br><span class="line"><span class="comment">#ylabels=[ 'h3k4me3', 'h3k27ac','h3k4me1', 'h3k36me3', 'h3k27me3',  'h3k9me3']</span></span><br><span class="line"><span class="comment">#ylabels=[ 'h3k27ac', 'h3k4me3', 'h3k9ac' ,  'h34me1' , 'h3k36me3', 'h3k9me3', 'h3k27me3' ]</span></span><br><span class="line"><span class="comment">#ylabels=[ 'h3k27ac', 'PolII', 'h3k4me3',  'h3k4me1' , 'h3k36me3', 'h3k9me3', 'h3k27me3' ]</span></span><br><span class="line"><span class="comment">#ylabels=[ 'CTCF_UT-A', 'H3K27me3_none','H3K9me3_stanford', 'CTCF_stanford', 'H3K4me1_stanford',  'H3K27ac_stanford', 'H3K4me3_UW_peaks']</span></span><br><span class="line">ylabels=[ <span class="string">'LINE'</span>, <span class="string">'SINE'</span>, <span class="string">'LTR'</span>, <span class="string">'Others'</span>]</span><br><span class="line"><span class="comment">#ylabels=['H3K4me3' , 'H3K27ac', 'PolII', 'H3K4me1', 'H3K9me3' , 'H3K36me3', 'H3K27me3']</span></span><br><span class="line"><span class="comment">#ylabels=[ 'H3K4me3' ,'H3K27ac', 'H3K9ac', 'H3K4me1', 'H3K27me3', 'H3K9me3', 'H3K36me3']</span></span><br><span class="line">title=<span class="string">"ASM distribution"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw_heatmap</span><span class="params">(data,title, xlabels,ylabels)</span>:</span></span><br><span class="line">    <span class="comment">#cmap=cm.Blues    </span></span><br><span class="line">    cmap=cm.get_cmap(<span class="string">'RdYlBu_r'</span>)</span><br><span class="line">    figure=plt.figure(facecolor=<span class="string">'w'</span>)</span><br><span class="line">    ax=figure.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,position=[<span class="number">0.1</span>,<span class="number">0.15</span>,<span class="number">0.8</span>,<span class="number">0.8</span>])</span><br><span class="line">    ax.set_yticks(range(len(ylabels)))</span><br><span class="line">    ax.set_yticklabels(ylabels)</span><br><span class="line">    ax.set_xticks(range(len(xlabels)))</span><br><span class="line">    ax.set_xticklabels(xlabels)</span><br><span class="line">    vmax=data[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    vmin=data[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i:</span><br><span class="line">            <span class="keyword">if</span> j&gt;vmax:</span><br><span class="line">                vmax=j</span><br><span class="line">            <span class="keyword">if</span> j&lt;vmin:</span><br><span class="line">                vmin=j</span><br><span class="line">    map=ax.imshow(data,interpolation=<span class="string">'nearest'</span>,cmap=cmap,aspect=<span class="string">'auto'</span>,vmin=vmin,vmax=vmax)</span><br><span class="line">    cb=plt.colorbar(mappable=map,cax=<span class="keyword">None</span>,ax=<span class="keyword">None</span>,shrink=<span class="number">0.5</span>)</span><br><span class="line">    ax.set_title(title,size=<span class="number">15</span>)</span><br><span class="line">    <span class="comment">#plt.show()</span></span><br><span class="line">    <span class="comment">#plt.savefig(filename3, bbox_inches='tight')</span></span><br><span class="line">    pdf.savefig()</span><br><span class="line">    </span><br><span class="line">            </span><br><span class="line"><span class="comment">#a=np.random.rand(10,10)</span></span><br><span class="line"></span><br><span class="line">draw_heatmap(y,title, xlabels,ylabels) </span><br><span class="line">pdf.close()</span><br></pre></td></tr></table></figure><h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><p><img src="/15/plotHeatmap/PlotHeatmap/heatmap.png" alt="Heatmap"></p></div><div><div style="text-align:center;color:#ccc;font-size:14px"> ------ The Happy Ending -----</div></div><div><div class="my_post_copyright"><script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script><script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script><script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><p><span>本文标题:</span><a href="/2018/12/15/plotHeatmap/">plotHeatmap</a></p><p><span>文章作者:</span><a href="/" title="访问 Qiangwei 的个人博客">Qiangwei</a></p><p><span>发布时间:</span>2018年12月15日 - 14:12</p><p><span>最后更新:</span>2019年01月06日 - 15:01</p><p><span>原始链接:</span><a href="/2018/12/15/plotHeatmap/" title="plotHeatmap">https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/</a><span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/" aria-label="复制成功！"></i></span></p><p> 转载请保留原文链接及作者。</p></div><script>var clipboard=new Clipboard(".fa-clipboard");$(".fa-clipboard").click(function(){clipboard.on("success",function(){swal({title:"",text:"复制成功",icon:"success",showConfirmButton:!0})})})</script></div><footer class="post-footer"><div class="post-tags"><a href="/tags/visualization-python-heatmap/" rel="tag"><i class="fa fa-tag"></i> visualization, python, heatmap</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/12/15/plotHeatmapFromMatrix/" rel="next" title="plotHeatmapFromMatrix"><i class="fa fa-chevron-left"></i> plotHeatmapFromMatrix</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/2018/12/15/plotProfile/" rel="prev" title="plotProfile">plotProfile<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Qiangwei"><p class="site-author-name" itemprop="name">Qiangwei</p><p class="site-description motion-element" itemprop="description">顺风不浪 逆风不怂</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives/"><span class="site-state-item-count">39</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">24</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">55</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/ZhouQiangwei" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="https://www.zhihu.com/people/qiang-wei-97-1/activities" target="_blank" title="知乎"><i class="fa fa-fw fa-gratipay"></i> 知乎</a></span><span class="links-of-author-item"><a href="mailto:qiangwei.zhou2013@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i> E-Mail</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#scripts"><span class="nav-number">1.</span> <span class="nav-text">scripts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Results"><span class="nav-number">2.</span> <span class="nav-text">Results</span></a></li></ol></div></div></section><div id="music163player"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=32364032&auto=0&height=66"></iframe></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span><span class="with-love" id="animate"><i class="fa fa-user"></i></span> <span class="author" itemprop="copyrightHolder">Qiangwei</span></div><div class="powered-by"><i class="fa fa-user-md"></i> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> <span id="busuanzi_container_site_uv">| 本站访问<span id="busuanzi_value_site_uv"></span>人次</span></div><div class="theme-info"><div class="powered-by"></div> <span class="post-count">| 博客全站共26.1k字</span></div><div style="display:none"><script src="//s95.cnzz.com/z_stat.php?id=1274106223&web_id=1274106223" language="JavaScript"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">var GUEST=["nick","mail","link"],guest="nick,mail,link";guest=guest.split(",").filter(function(e){return-1<GUEST.indexOf(e)}),new Valine({el:"#comments",verify:!1,notify:!1,appId:"L6lf5Fu6idkKfdhjKT1WmTbQ-gzGzoHsz",appKey:"WIycEuuCj4CnQLrJUlWHvPae",placeholder:"Just go",avatar:"mm",guest_info:guest,pageSize:"10"})</script><script type="text/javascript">
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <script>
+    (function(){
+        if(''){
+            if (prompt('Please input paper password') !== ''){
+                alert('Password is incorrect!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="visualization, python, heatmap">
+<meta name="keywords" content="visualization, python, heatmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="plotHeatmap">
+<meta property="og:url" content="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/index.html">
+<meta property="og:site_name" content="Qiangwei&#39;s blog">
+<meta property="og:description" content="visualization, python, heatmap">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/PlotHeatmap/heatmap.png">
+<meta property="og:updated_time" content="2019-01-06T07:34:11.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="plotHeatmap">
+<meta name="twitter:description" content="visualization, python, heatmap">
+<meta name="twitter:image" content="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/PlotHeatmap/heatmap.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Qiangwei's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>plotHeatmap | Qiangwei's blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qiangwei's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">coding and learning</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-guestbook">
+    <a href="/guestbook/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-newspaper-o"></i> <br />留言板</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiangwei">
+      <meta itemprop="description" content="顺风不浪 逆风不怂">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiangwei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">plotHeatmap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-15 14:49:34" itemprop="dateCreated datePublished" datetime="2018-12-15T14:49:34+08:00">2018-12-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-06 15:34:11" itemprop="dateModified" datetime="2019-01-06T15:34:11+08:00">2019-01-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/visualization/" itemprop="url" rel="index"><span itemprop="name">visualization</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/visualization/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/15/plotHeatmap/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/15/plotHeatmap/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/15/plotHeatmap/" class="leancloud_visitors" data-flag-title="plotHeatmap">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">visualization, python, heatmap</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="/assets/js/APlayer.min.js"> </script><h2 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Created on Fri Sep 21 15:37:26 2018</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@author: qwzhou</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.backends.backend_pdf <span class="keyword">import</span> PdfPages</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> cm </span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> axes</span><br><span class="line"></span><br><span class="line">y = []</span><br><span class="line">z = []</span><br><span class="line">k = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readfile</span><span class="params">(filename, y, z, k)</span>:</span></span><br><span class="line">    nline=<span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'r'</span>) <span class="keyword">as</span> fig:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> fig:</span><br><span class="line">            data = line.split()</span><br><span class="line">            <span class="keyword">if</span> nline == <span class="number">0</span>:</span><br><span class="line">                y.append(map(float,data[<span class="number">1</span>:]))</span><br><span class="line">            <span class="keyword">elif</span> nline == <span class="number">1</span>:</span><br><span class="line">                z.append(map(float,data[<span class="number">1</span>:]))</span><br><span class="line">            <span class="keyword">elif</span> nline == <span class="number">2</span>:</span><br><span class="line">                k.append(map(float,data[<span class="number">1</span>:]))</span><br><span class="line">            nline=nline+<span class="number">1</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">#readfile("./A549/PolII_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/CTCF_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./A549/h3k4me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k27ac_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k4me1_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./A549/h3k36me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k27me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549/h3k9me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./k562/H3K27ac_narrow_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K4me3_narrow_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K9ac_narrow_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K4me1_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./k562/H3K36me3_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K9me3_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/H3K27me3_broad_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27ac_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/PolII_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me1_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K36me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K9me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27me3_peaks.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_UT-A_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K27me3_none_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K9me3_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K4me1_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K27ac_stanford_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/H3K4me3_UW_peaks.newasm.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_UT-A_peaks.newasm.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./A549_2/CTCF_UT-A.Allele.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.LINE.Methy.1.txt.Aver", y, z, k) </span></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.SINE.Methy.1.txt.Aver", y, z, k) </span></span><br><span class="line"><span class="comment">#readfile("./k562/hg38.fa.out.repeat.LTR.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27ac_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K36me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K9me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27me3_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me1_peaks.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27ac_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/PolII_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K4me1_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K9me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K27me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./IMR90/H3K36me3_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/CTCF_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K27ac_narrow_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K4me3_narrow_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K9ac_narrow_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K4me1_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K27me3_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K9me3_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"><span class="comment">#readfile("./gm12878/H3K36me3_broad_peaks.sites.Methy.1.txt", y, z, k)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#readfile("./IMR90/hg38.fa.out.repeat.start.sites.Methy.1.txt.Aver", y, z, k)</span></span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.LINE.sites.Methy.1.txt.Aver"</span>, y, z, k) </span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.SINE.sites.Methy.1.txt.Aver"</span>, y, z, k) </span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.LTR.sites.Methy.1.txt.Aver"</span>, y, z, k)</span><br><span class="line">readfile(<span class="string">"./IMR90/hg38.fa.out.repeat.Others.sites.Methy.1.txt.Aver"</span>, y, z, k)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">filename=<span class="string">"./IMR90/ASM.distri.TE.Sites.heatmap"</span></span><br><span class="line">filename2=filename + <span class="string">".pdf"</span></span><br><span class="line">pdf = PdfPages(filename2)</span><br><span class="line">xlabels=[]</span><br><span class="line"><span class="comment">#ylabels=['PolII', 'h3k4me3', 'h3k27ac', 'h3k27me3', 'h3k36me3', 'h3k4me1', 'h3k9me3']</span></span><br><span class="line"><span class="comment">#ylabels=[ 'h3k4me3', 'h3k27ac','h3k4me1', 'h3k36me3', 'h3k27me3',  'h3k9me3']</span></span><br><span class="line"><span class="comment">#ylabels=[ 'h3k27ac', 'h3k4me3', 'h3k9ac' ,  'h34me1' , 'h3k36me3', 'h3k9me3', 'h3k27me3' ]</span></span><br><span class="line"><span class="comment">#ylabels=[ 'h3k27ac', 'PolII', 'h3k4me3',  'h3k4me1' , 'h3k36me3', 'h3k9me3', 'h3k27me3' ]</span></span><br><span class="line"><span class="comment">#ylabels=[ 'CTCF_UT-A', 'H3K27me3_none','H3K9me3_stanford', 'CTCF_stanford', 'H3K4me1_stanford',  'H3K27ac_stanford', 'H3K4me3_UW_peaks']</span></span><br><span class="line">ylabels=[ <span class="string">'LINE'</span>, <span class="string">'SINE'</span>, <span class="string">'LTR'</span>, <span class="string">'Others'</span>]</span><br><span class="line"><span class="comment">#ylabels=['H3K4me3' , 'H3K27ac', 'PolII', 'H3K4me1', 'H3K9me3' , 'H3K36me3', 'H3K27me3']</span></span><br><span class="line"><span class="comment">#ylabels=[ 'H3K4me3' ,'H3K27ac', 'H3K9ac', 'H3K4me1', 'H3K27me3', 'H3K9me3', 'H3K36me3']</span></span><br><span class="line">title=<span class="string">"ASM distribution"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw_heatmap</span><span class="params">(data,title, xlabels,ylabels)</span>:</span></span><br><span class="line">    <span class="comment">#cmap=cm.Blues    </span></span><br><span class="line">    cmap=cm.get_cmap(<span class="string">'RdYlBu_r'</span>)</span><br><span class="line">    figure=plt.figure(facecolor=<span class="string">'w'</span>)</span><br><span class="line">    ax=figure.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,position=[<span class="number">0.1</span>,<span class="number">0.15</span>,<span class="number">0.8</span>,<span class="number">0.8</span>])</span><br><span class="line">    ax.set_yticks(range(len(ylabels)))</span><br><span class="line">    ax.set_yticklabels(ylabels)</span><br><span class="line">    ax.set_xticks(range(len(xlabels)))</span><br><span class="line">    ax.set_xticklabels(xlabels)</span><br><span class="line">    vmax=data[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    vmin=data[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i:</span><br><span class="line">            <span class="keyword">if</span> j&gt;vmax:</span><br><span class="line">                vmax=j</span><br><span class="line">            <span class="keyword">if</span> j&lt;vmin:</span><br><span class="line">                vmin=j</span><br><span class="line">    map=ax.imshow(data,interpolation=<span class="string">'nearest'</span>,cmap=cmap,aspect=<span class="string">'auto'</span>,vmin=vmin,vmax=vmax)</span><br><span class="line">    cb=plt.colorbar(mappable=map,cax=<span class="keyword">None</span>,ax=<span class="keyword">None</span>,shrink=<span class="number">0.5</span>)</span><br><span class="line">    ax.set_title(title,size=<span class="number">15</span>)</span><br><span class="line">    <span class="comment">#plt.show()</span></span><br><span class="line">    <span class="comment">#plt.savefig(filename3, bbox_inches='tight')</span></span><br><span class="line">    pdf.savefig()</span><br><span class="line">    </span><br><span class="line">            </span><br><span class="line"><span class="comment">#a=np.random.rand(10,10)</span></span><br><span class="line"></span><br><span class="line">draw_heatmap(y,title, xlabels,ylabels) </span><br><span class="line">pdf.close()</span><br></pre></td></tr></table></figure>
+<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><p><img src="/2018/12/15/plotHeatmap/PlotHeatmap/heatmap.png" alt="Heatmap"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+	
+<div style="text-align:center;color: #ccc;font-size:14px;">
+	------ The Happy Ending -----</div>
+
+
+      </div>
+    
+
+     <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/15/plotHeatmap/">plotHeatmap</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Qiangwei 的个人博客">Qiangwei</a></p>
+  <p><span>发布时间:</span>2018年12月15日 - 14:12</p>
+  <p><span>最后更新:</span>2019年01月06日 - 15:01</p>
+  <p><span>原始链接:</span><a href="/2018/12/15/plotHeatmap/" title="plotHeatmap">https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+     </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/visualization-python-heatmap/" rel="tag"><i class="fa fa-tag"></i> visualization, python, heatmap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/plotHeatmapFromMatrix/" rel="next" title="plotHeatmapFromMatrix">
+                <i class="fa fa-chevron-left"></i> plotHeatmapFromMatrix
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/plotProfile/" rel="prev" title="plotProfile">
+                plotProfile <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Qiangwei" />
+            
+              <p class="site-author-name" itemprop="name">Qiangwei</p>
+              <p class="site-description motion-element" itemprop="description">顺风不浪 逆风不怂</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/ZhouQiangwei" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/qiang-wei-97-1/activities" target="_blank" title="知乎"><i class="fa fa-fw fa-gratipay"></i>知乎</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:qiangwei.zhou2013@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#scripts"><span class="nav-number">1.</span> <span class="nav-text">scripts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Results"><span class="nav-number">2.</span> <span class="nav-text">Results</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+     
+      <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=32364032&auto=0&height=66"></iframe>
+      </div>     
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiangwei</span>
+
+  
+
+  
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+    | 本站访问<span id="busuanzi_value_site_uv"></span>人次
+</span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> | 博客全站共31.8k字</span>
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1274106223&web_id=1274106223" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'L6lf5Fu6idkKfdhjKT1WmTbQ-gzGzoHsz',
+        appKey: 'WIycEuuCj4CnQLrJUlWHvPae',
+        placeholder: 'Just go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -316,4 +1469,151 @@
         onPopupClose();
       }
     });
-  </script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("L6lf5Fu6idkKfdhjKT1WmTbQ-gzGzoHsz","WIycEuuCj4CnQLrJUlWHvPae")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script></body></html>
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("L6lf5Fu6idkKfdhjKT1WmTbQ-gzGzoHsz", "WIycEuuCj4CnQLrJUlWHvPae");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
