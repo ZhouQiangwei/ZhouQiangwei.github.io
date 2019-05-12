@@ -2,37 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2019/05/03/project-machinelearning-basic/</loc>
-    
-    <lastmod>2019-05-03T02:59:12.366Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhouqiangwei.github.io/2019/04/03/project-alleleweb/</loc>
-    
-    <lastmod>2019-04-30T06:52:52.820Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://zhouqiangwei.github.io/2019/04/03/project-methhap/</loc>
     
-    <lastmod>2019-04-29T02:48:16.538Z</lastmod>
+    <lastmod>2019-05-11T10:50:30.645Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zhouqiangwei.github.io/2019/05/11/tmp/</loc>
+    
+    <lastmod>2019-05-11T07:44:07.290Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://zhouqiangwei.github.io/2019/04/08/project-dayday/</loc>
     
-    <lastmod>2019-04-25T07:56:15.834Z</lastmod>
+    <lastmod>2019-05-11T06:40:16.583Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zhouqiangwei.github.io/2019/04/03/project-alleleweb/</loc>
+    
+    <lastmod>2019-05-09T12:53:50.865Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://zhouqiangwei.github.io/2019/04/20/project-asmweb-aws/</loc>
     
-    <lastmod>2019-04-24T08:51:54.143Z</lastmod>
+    <lastmod>2019-05-05T04:47:00.122Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zhouqiangwei.github.io/2019/05/04/project-asmweb-aws/</loc>
+    
+    <lastmod>2019-05-04T15:59:47.746Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zhouqiangwei.github.io/2019/05/03/project-machinelearning-basic/</loc>
+    
+    <lastmod>2019-05-03T02:59:12.366Z</lastmod>
     
   </url>
   
@@ -100,13 +114,6 @@
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/categories/index.html</loc>
-    
-    <lastmod>2019-01-06T07:34:11.922Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://zhouqiangwei.github.io/about/index.html</loc>
     
     <lastmod>2019-01-06T07:34:11.922Z</lastmod>
@@ -115,6 +122,13 @@
   
   <url>
     <loc>https://zhouqiangwei.github.io/guestbook/index.html</loc>
+    
+    <lastmod>2019-01-06T07:34:11.922Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zhouqiangwei.github.io/categories/index.html</loc>
     
     <lastmod>2019-01-06T07:34:11.922Z</lastmod>
     
@@ -149,14 +163,14 @@
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/07/06/sublime-Text%E9%85%8D%E7%BD%AEMarkdown%E7%BC%96%E8%BE%91/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/16/workingon/</loc>
     
     <lastmod>2019-01-06T07:34:11.916Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/16/workingon/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/07/06/sublime-Text%E9%85%8D%E7%BD%AEMarkdown%E7%BC%96%E8%BE%91/</loc>
     
     <lastmod>2019-01-06T07:34:11.916Z</lastmod>
     
@@ -177,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/21/mm9tomm10vcf/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/</loc>
     
     <lastmod>2019-01-06T07:34:11.913Z</lastmod>
     
@@ -191,16 +205,9 @@
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/15/plotHeatmap/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/21/mm9tomm10vcf/</loc>
     
     <lastmod>2019-01-06T07:34:11.913Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/15/methpoint/</loc>
-    
-    <lastmod>2019-01-06T07:34:11.912Z</lastmod>
     
   </url>
   
@@ -219,23 +226,16 @@
   </url>
   
   <url>
+    <loc>https://zhouqiangwei.github.io/2018/12/15/methpoint/</loc>
+    
+    <lastmod>2019-01-06T07:34:11.912Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zhouqiangwei.github.io/2018/07/05/github%20pages%E5%92%8Chexo%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2019-01-06T07:34:11.910Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/24/day20181224/</loc>
-    
-    <lastmod>2019-01-06T07:34:11.909Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/15/ggplot-basic-plot/</loc>
-    
-    <lastmod>2019-01-06T07:34:11.909Z</lastmod>
     
   </url>
   
@@ -247,7 +247,21 @@
   </url>
   
   <url>
+    <loc>https://zhouqiangwei.github.io/2018/12/24/day20181224/</loc>
+    
+    <lastmod>2019-01-06T07:34:11.909Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zhouqiangwei.github.io/2018/12/15/check-install-Rpkg/</loc>
+    
+    <lastmod>2019-01-06T07:34:11.909Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zhouqiangwei.github.io/2018/12/15/ggplot-basic-plot/</loc>
     
     <lastmod>2019-01-06T07:34:11.909Z</lastmod>
     
@@ -282,14 +296,14 @@
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/16/HiC-Pro/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/15/EdgeR/</loc>
     
     <lastmod>2019-01-06T07:34:11.904Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/15/EdgeR/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/16/HiC-Pro/</loc>
     
     <lastmod>2019-01-06T07:34:11.904Z</lastmod>
     
@@ -324,14 +338,14 @@
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/19/20181219/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/25/20181225/</loc>
     
     <lastmod>2019-01-06T07:34:11.871Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://zhouqiangwei.github.io/2018/12/25/20181225/</loc>
+    <loc>https://zhouqiangwei.github.io/2018/12/19/20181219/</loc>
     
     <lastmod>2019-01-06T07:34:11.871Z</lastmod>
     
